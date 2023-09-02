@@ -25,7 +25,7 @@ class ColdCallController extends Controller
 
     //Form tambah data pelanggan
     public function create() {
-        $poinSales = PoinSales::where('nama', JenisCallProvider::COLD_CALL)->first();
+        $poinSales = PoinSales::where('nama', JenisCallProvider::COLD_CALL)->firstOrFail();
         $poinCall = $poinSales->poin;
 
         $data = [
