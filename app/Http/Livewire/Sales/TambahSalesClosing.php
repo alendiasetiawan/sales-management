@@ -48,6 +48,8 @@ class TambahSalesClosing extends Component
     public $dataLama = NULL;
     public $unit;
     public $totalTransaksi;
+    public $jumlahKarakter;
+    public $alertAlamat;
 
     protected $pelangganService;
     protected $poinSalesService;
@@ -59,6 +61,16 @@ class TambahSalesClosing extends Component
     public function boot(PelangganService $pelanggan, PoinSalesService $poinSales) {
         $this->pelangganService = $pelanggan;
         $this->poinSalesService = $poinSales;
+    }
+
+    public function updatedAlamat($value) {
+        $this->jumlahKarakter = strlen($value);
+
+        if ($this->jumlahKarakter < 30) {
+            $this->alertAlamat = 1;
+        } else {
+            $this->alertAlamat = 0;
+        }
     }
 
     public function updatedPilihProvinsi() {
@@ -86,6 +98,7 @@ class TambahSalesClosing extends Component
         $this->pilihKecamatan = $dataPelanggan->kecamatan_id;
         $this->alamat = $dataPelanggan->alamat;
         $this->kodePelanggan = $dataPelanggan->kode;
+        $this->jumlahKarakter = strlen($dataPelanggan->alamat);
 
         $provinsi = Provinsi::where('id', $this->pilihProvinsi)->first();
         $this->namaProvinsi = $provinsi->nama_provinsi;

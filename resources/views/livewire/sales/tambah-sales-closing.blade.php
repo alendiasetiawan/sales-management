@@ -122,7 +122,14 @@
                     <textarea wire:model='alamat' class="form-control" rows="4" placeholder="Isi alamat dengan lengkap"
                         name="alamat" required
                         oninvalid="this.setCustomValidity('Dimana customer tinggal?')"
-                        oninput="this.setCustomValidity('')"></textarea>
+                        oninput="this.setCustomValidity('')">
+                    </textarea>
+                    <small class="textarea-counter-value float-end">
+                        <span class="char-count">{{ $jumlahKarakter }}</span> / 500
+                    </small>
+                    @if ($alertAlamat == 1)
+                    <small class="text-danger">Alamat kurang lengkap, tulis minimal 30 karakter!</small>
+                    @endif
                 </div>
 
                 <!--Tanggal-->
@@ -162,7 +169,11 @@
                 <!--Button-->
 
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary me-sm-3 me-1">Simpan</button>
+                    @if ($jumlahKarakter < 30)
+                        <button type="button" class="btn btn-dark me-sm-3 me-1">Data Belum Lengkap</button>
+                    @else
+                        <button type="submit" class="btn btn-primary me-sm-3 me-1">Simpan</button>
+                    @endif
                     <a href="/sales/sales-closing/tambah">
                         <button type="button" class="btn btn-outline-primary me-sm-3 me-1">Reset</button>
                     </a>

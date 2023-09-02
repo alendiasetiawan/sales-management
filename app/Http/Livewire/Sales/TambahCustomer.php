@@ -49,6 +49,8 @@ class TambahCustomer extends Component
     public $dataLama = NULL;
     public $coldCall;
     public $warmCall;
+    public $jumlahKarakter;
+    public $alertAlamat;
 
     protected $pelangganService;
     protected $poinSalesService;
@@ -78,6 +80,16 @@ class TambahCustomer extends Component
         ->get();
     }
 
+    public function updatedAlamat($value) {
+        $this->jumlahKarakter = strlen($value);
+
+        if ($this->jumlahKarakter < 30) {
+            $this->alertAlamat = 1;
+        } else {
+            $this->alertAlamat = 0;
+        }
+    }
+
     public function gunakanDataLama($no_hp) {
         $this->dataLama = 1;
 
@@ -89,6 +101,7 @@ class TambahCustomer extends Component
         $this->pilihKecamatan = $dataPelanggan->kecamatan_id;
         $this->alamat = $dataPelanggan->alamat;
         $this->kodePelanggan = $dataPelanggan->kode;
+        $this->jumlahKarakter = strlen($dataPelanggan->alamat);
 
         $provinsi = Provinsi::where('id', $this->pilihProvinsi)->first();
         $this->namaProvinsi = $provinsi->nama_provinsi;

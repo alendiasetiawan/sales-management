@@ -114,7 +114,13 @@
                 <div class="col-12 col-md-6">
                     <label class="form-label">Alamat Domisili</label>
                     <textarea wire:model='alamat' class="form-control" rows="4" placeholder="Isi alamat dengan lengkap"
-                        name="alamat"></textarea>
+                        name="alamat" required></textarea>
+                        <small class="textarea-counter-value float-end">
+                            <span class="char-count">{{ $jumlahKarakter }}</span> / 500
+                        </small>
+                        @if ($alertAlamat == 1)
+                        <small class="text-danger">Alamat kurang lengkap, tulis minimal 30 karakter!</small>
+                        @endif
                 </div>
 
                 <div class="col-12 col-md-3">
@@ -135,7 +141,12 @@
                 <input type="hidden" wire:mode="kodePelanggan" value="{{ $kodePelanggan }}"/>
                 <!--Button-->
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary me-sm-3 me-1">Simpan</button>
+                    @if ($jumlahKarakter < 30)
+                        <button type="button" class="btn btn-dark me-sm-3 me-1">Data Belum Lengkap</button>
+                    @else
+                        <button type="submit" class="btn btn-primary me-sm-3 me-1">Simpan</button>
+                    @endif
+
                     <a
                     @if ($jenisCall == $coldCall)
                     href="/sales/cold-call/tambah"
@@ -147,6 +158,7 @@
                     >
                         <button type="button" class="btn btn-outline-primary me-sm-3 me-1">Reset</button>
                     </a>
+
                     <a
                     @if ($jenisCall == $coldCall)
                     href="/sales/cold-call"

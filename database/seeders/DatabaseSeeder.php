@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             RefPekanSeeder::class,
             RefBulanSeeder::class,
             PoinSalesSeeder::class,
+            AlamatSeeder::class,
         ]);
     }
 }
